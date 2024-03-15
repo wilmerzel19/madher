@@ -78,8 +78,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="bi bi-people"></i> Users
+                            <a class="nav-link" onclick="media()">
+                                <i class="bi bi-people"></i> Media
                             </a>
                         </li>
                     </ul>
@@ -583,56 +583,29 @@
 
 
 
-
-
-
-
-
-        const toggleThemeBtn = document.getElementById("toggle-theme-btn");
-        const body = document.body;
-
-        toggleThemeBtn.addEventListener("click", function () {
-            body.classList.toggle("dark-mode");
-        });
-
-        const darkMode = localStorage.getItem("dark-mode");
-        if (darkMode) {
-            body.classList.add("dark-mode");
-        } else {
-            body.classList.remove("dark-mode");
+        const reportes = () => {
+            window.location.href = "reporte.html";
         }
-
 
         const calendario = () => {
             window.location.href = "calendario.html";
         }
 
-
-
-
-
-
-
-        const reportes = () => {
-            let teams = JSON.parse(localStorage.getItem("asistencias")) || [];
-            let tablaReportes = document.getElementById("tablaReportes");
-
-            teams.forEach(team => {
-                let row = tablaReportes.insertRow();
-                row.innerHTML = `
-            <td>${team.name}</td>
-            <td>${team.seccion}</td>
-            <td>${team.fecha}</td>
-            <td>${team.mujeres}</td>
-            <td>${team.varones}</td>
-            <td>${team.total}</td>
-        `;
-            });
-
-            localStorage.setItem("asistencias", JSON.stringify([])); // Vaciar la tabla de asistencias
-
-            window.location.href = "reporte.html"; // Redirigir a la página de reporte
+        const media = () => {
+            window.location.href = "galeria.html";
         }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     </script>

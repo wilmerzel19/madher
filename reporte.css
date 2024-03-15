@@ -1,0 +1,72 @@
+table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  td:last-child {
+    text-align: right;
+  }
+  
+  th:last-child,
+  td:last-child {
+    text-align: right;
+  }
+  
+  td:nth-child(2):last-child,
+  th:nth-child(2):last-child {
+    text-align: right;
+  }
+  
+  td:nth-child(3):last-child,
+  th:nth-child(3):last-child {
+    text-align: right;
+  }
+  
+  td:nth-child(4):last-child,
+  th:nth-child(4):last-child {
+    text-align: right;
+  }
+  
+  td:nth-child(5):last-child,
+  th:nth-child(5):last-child {
+    text-align: right;
+  }
+  
+  td:nth-child(6):last-child,
+  th:nth-child(6):last-child {
+    text-align: right;
+  }
+  
+  td:nth-child(7):last-child,
+  th:nth-child(7):last-child {
+    text-align: right;
+  }
+  
+  td:nth-child(8):last-child,
+  th:nth-child(8):last-child {
+    text-align: right;
+  }
+  
+  td:nth-child(11):last-child,
+  th:nth-child(11):last-child {
+    text-align: right;
+  }
+  
+  td:nth-child(12):last-child,
+  th:nth-child(12):last-child {
+    text-align: right;
+  }
