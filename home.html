@@ -127,13 +127,20 @@
                                             <div class="modal-content">
                                                 <span class="close" onclick="closeModal()">&times;</span>
                                                 <h2 class="textmodal">Crear Venta</h2>
-
                                                 <label for="name">Descripción:</label>
-                                                <input type="text" id="name" name="name"
-                                                    placeholder="Descripción" required><br><br>
-                                                <label for="seccion">Productos +/v:</label>
-                                                <input type="select" id="seccion" name="seccion" placeholder="Productos +/v"
+                                                <input type="text" id="name" name="name" placeholder="Descripción"
                                                     required><br><br>
+                                                <label for="seccion">Productos +/v:</label>
+                                                <input type="select" id="seccion" name="seccion"
+                                                    placeholder="Productos +/v" required><br><br>
+                                                <label for="pp">Productos pendientes</label>
+                                                <input type="number" id="pp" name="pp" placeholder="pendientes"
+                                                    required><br><br>
+                                                <label for="pe">Productos entregados</label>
+                                                <input type="number" id="pe" name="pe" placeholder="entregados"
+                                                    required><br><br>
+
+
                                                 <label for="fecha">Fecha:</label>
                                                 <input type="date" id="fecha" name="fecha" required><br><br>
                                                 <label for="mujeres">Costo/Unidad:</label>
@@ -165,13 +172,21 @@
                                             <h2>Editar Venta</h2>
                                             <input type="hidden" id="indexE">
                                             <label for="name">Descripción:</label>
-                                            <input type="text" id="name1" name="name"
-                                                placeholder="Descripción" required><br><br>
-                                            <label for="seccion">Productos +/v:</label>
-                                            <input type="select" id="seccion1" name="seccion" placeholder="Productos +/v"
+                                            <input type="text" id="name1" name="name" placeholder="Descripción"
                                                 required><br><br>
+                                            <label for="seccion">Productos +/v:</label>
+                                            <input type="select" id="seccion1" name="seccion"
+                                                placeholder="Productos +/v" required><br><br>
+                                            <label for="pp">Productos pendientes</label>
+                                            <input type="number" id="pp1" name="pp" placeholder="pendientes" required><br><br>
+                                            <label for="pe">Productos entregados</label>
+                                            <input type="number" id="pe1" name="pe" placeholder="entregados"
+                                                required><br><br>
+
                                             <label for="fecha">Fecha:</label>
                                             <input type="date" id="fecha1" name="fecha" required><br><br>
+
+
                                             <label for="mujeres">Costo/Unidad:</label>
                                             <input type="number" id="mujeres1" name="mujeres" placeholder="0"
                                                 required><br><br>
@@ -213,8 +228,8 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div id="card-total-asistencias" class="col">
-                                            <span
-                                                class="h6 font-semibold text-muted text-sm d-block mb-2">Venta Total</span>
+                                            <span class="h6 font-semibold text-muted text-sm d-block mb-2">Venta
+                                                Total</span>
                                             <span id="total-asistencias"
                                                 class="h3 font-bold mb-0">{{totalAsistencias}}</span>
                                         </div>
@@ -238,8 +253,8 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col">
-                                            <span
-                                                class="h6 font-semibold text-muted text-sm d-block mb-2">Varones</span>
+                                            <span class="h6 font-semibold text-muted text-sm d-block mb-2">Productos
+                                                Pendientes</span>
                                             <span id="totalVarones" class="h3 font-bold mb-0">200</span>
                                         </div>
                                         <div class="col-auto">
@@ -262,8 +277,8 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col">
-                                            <span
-                                                class="h6 font-semibold text-muted text-sm d-block mb-2">Mujeres</span>
+                                            <span class="h6 font-semibold text-muted text-sm d-block mb-2">Productos
+                                                Entregados</span>
                                             <span id="totalMujeres" class="h3 font-bold mb-0">95</span>
                                         </div>
                                         <div class="col-auto">
@@ -300,10 +315,11 @@
                                 <tr>
                                     <th scope="col">Descripción</th>
                                     <th scope="col">Productos +/v</th>
+                                    <th scope="col">Productos pendientes</th>
+                                    <th scope="col">Productos entregados</th>
                                     <th scope="col">Fecha</th>
                                     <th scope="col">Costo/Unidad</th>
                                     <th scope="col">Costo Total</th>
-
                                     <th scope="col">Total</th>
                                     <th scope="col" class="text-end">Actions</th>
                                 </tr>
@@ -366,6 +382,8 @@
         const guardar = () => {
             let name = document.getElementById("name").value;
             let seccion = document.getElementById("seccion").value;
+            let pp = document.getElementById("pp").value;
+            let pe = document.getElementById("pe").value;
             let fecha = document.getElementById("fecha").value;
             let mujeres = document.getElementById("mujeres").value;
             let varones = document.getElementById("varones").value;
@@ -373,7 +391,7 @@
 
 
             let teams = JSON.parse(localStorage.getItem("asistencias")) || [];
-            teams.push({ name, seccion, fecha, mujeres, varones, total });
+            teams.push({ name, seccion, pp, pe, fecha, mujeres, varones, total });
             localStorage.setItem("asistencias", JSON.stringify(teams));
             closeModal();
             cargar();
@@ -396,15 +414,17 @@
                 <tr>
                     <td>${team.name}</td>
                     <td>${team.seccion}</td>
+                     <td>${team.pp}</td>
+                    <td>${team.pe}</td>
 
                     <td>${team.fecha}</td>
                     <td>${team.mujeres}</td>
                     <td>${team.varones}</td>
                     <td>${team.total}</td>
                     <td class="text-end">
-                        <button class="btn btn-sm btn-success me-2" onclick="reportes('${team.name}', '${team.seccion}', '${team.fecha}', '${team.mujeres}', '${team.varones}', '${team.total}')">
+                        <button class="btn btn-sm btn-success me-2" onclick="reportes('${team.name}', '${team.seccion}', '${team.fecha}', '${team.mujeres}', '${team.varones}', '${team.total}'>
                             <i class="bi bi-book"></i>
-                        <button class="btn btn-sm btn-secondary me-2" onclick="editar1('${team.name}', '${team.seccion}', '${team.fecha}', '${team.mujeres}', '${team.varones}', '${team.total}', ${index})">
+                        <button class="btn btn-sm btn-secondary me-2" onclick="editar1('${team.name}', '${team.seccion}', '${team.pp}', '${team.pe}', '${team.fecha}', '${team.mujeres}', '${team.varones}', '${team.total}', ${index})">
                             <i class="bi bi-pencil"></i>
                         </button>
                         <button class="btn btn-sm btn-danger" onclick="eliminar(${index})">
@@ -430,8 +450,8 @@
             let totalMujeres = 0;
             let totalVarones = 0;
             teams.forEach(team => {
-                totalMujeres += parseInt(team.mujeres);
-                totalVarones += parseInt(team.varones);
+                totalMujeres += parseInt(team.pp);
+                totalVarones += parseInt(team.pe);
             });
             return totalMujeres + totalVarones;
         }
@@ -450,7 +470,7 @@
             let teams = JSON.parse(localStorage.getItem("asistencias")) || [];
             let totalVarones = 0;
             teams.forEach(team => {
-                totalVarones += parseInt(team.varones);
+                totalVarones += parseInt(team.pp);
             });
             return totalVarones;
         }
@@ -467,7 +487,7 @@
             let teams = JSON.parse(localStorage.getItem("asistencias")) || [];
             let totalMujeres = 0;
             teams.forEach(team => {
-                totalMujeres += parseInt(team.mujeres);
+                totalMujeres += parseInt(team.pe);
             });
             return totalMujeres;
 
@@ -524,13 +544,15 @@
             var index = document.getElementById("indexE").value;
             let name = document.getElementById("name1").value;
             let seccion = document.getElementById("seccion1").value;
+            let pp = document.getElementById("pp1").value;
+            let pe = document.getElementById("pe1").value;
             let fecha = document.getElementById("fecha1").value;
             let mujeres = document.getElementById("mujeres1").value;
             let varones = document.getElementById("varones1").value;
             let total = document.getElementById("total1").value;
 
             let teams = JSON.parse(localStorage.getItem("asistencias"));
-            teams[index] = { name, seccion, fecha, mujeres, varones, total };
+            teams[index] = { name, seccion, pp, pe, fecha, mujeres, varones, total };
             localStorage.setItem("asistencias", JSON.stringify(teams));
             closeModal2();
             cargar();
@@ -539,6 +561,9 @@
         const editar1 = (name, seccion, fecha, mujeres, varones, total, index) => {
             document.getElementById("name1").value = name;
             document.getElementById("seccion1").value = seccion;
+            document.getElementById("pp1").value = pp;
+            document.getElementById("pe1").value = pe;
+
             document.getElementById("fecha1").value = fecha;
             document.getElementById("mujeres1").value = mujeres;
             document.getElementById("varones1").value = varones;
@@ -584,17 +609,17 @@
 
 
 
-        
+
 
 
 
         const reportes = () => {
-    let teams = JSON.parse(localStorage.getItem("asistencias")) || [];
-    let tablaReportes = document.getElementById("tablaReportes");
+            let teams = JSON.parse(localStorage.getItem("asistencias")) || [];
+            let tablaReportes = document.getElementById("tablaReportes");
 
-    teams.forEach(team => {
-        let row = tablaReportes.insertRow();
-        row.innerHTML = `
+            teams.forEach(team => {
+                let row = tablaReportes.insertRow();
+                row.innerHTML = `
             <td>${team.name}</td>
             <td>${team.seccion}</td>
             <td>${team.fecha}</td>
@@ -602,12 +627,12 @@
             <td>${team.varones}</td>
             <td>${team.total}</td>
         `;
-    });
+            });
 
-    localStorage.setItem("asistencias", JSON.stringify([])); // Vaciar la tabla de asistencias
+            localStorage.setItem("asistencias", JSON.stringify([])); // Vaciar la tabla de asistencias
 
-    window.location.href = "reporte.html"; // Redirigir a la página de reporte
-}
+            window.location.href = "reporte.html"; // Redirigir a la página de reporte
+        }
 
 
     </script>
