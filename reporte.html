@@ -72,10 +72,59 @@
     </div>
 
 
+    <!-- modal editar -->
+    <div id="myModal2" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal2()">&times;</span>
+            <h2>Editar Reporte</h2>
+            <input type="hidden" id="indexE">
+            <label for="fecha">Fecha</label>
+            <input type="date" id="fechaE" name="fecha" class="form-control" required>
+            <label for="descripcion">Descripción</label>
+            <input type="text" id="descripcionE" name="descripcion" class="form-control" required>
+            <label for="doc">Doc</label>
+            <input type="text" id="docE" name="doc" class="form-control" required>
+            <label for="entradas">Entradas</label>
+            <input type="text" id="entradasE" name="entradas" class="form-control" required>
+            <label for="precio">Precio</label>
+            <input type="text" id="precioE" name="precio" class="form-control" required>
+            <label for="preciototal">Precio Total</label>
+            <input type="text" id="preciototalE" name="preciototal" class="form-control" required>
+            <label for="cantidad">Cantidad</label>
+            <input type="text" id="cantidadE" name="cantidad" class="form-control" required>
+            <label for="preciou">Precio/U</label>
+            <input type="text" id="preciouE" name="preciou" class="form-control" required>
+            <label for="preciototal1">Precio total</label>
+            <input type="text" id="preciototal1E" name="preciototal1" class="form-control" required>
+            <label for="cantidad1">Cantidad</label>
+            <input type="text" id="cantidad1E" name="cantidad1" class="form-control" required>
+            <label for="preciou1">Precio/U</label>
+            <input type="text" id="preciou1E" name="preciou1" class="form-control" required>
+            <label for="preciototal2">Precio Total</label>
+            <input type="text" id="preciototal2E" name="preciototal2" class="form-control" required>
+             
+            <button class="btnguardar" type="button" onclick="editarGuardar()">Guardar</button>
+            <button class="btncerrar" type="button" onclick="closeModal2()">Cerrar</button>
+        </div>
+    </div>
+
+
+
+
+
+
+
     <div class="table-responsive">
         <table id="myTable" class="table table-hover table-nowrap">
             <div id="teams"></div>
             <thead class="thead-light">
+                <tr>
+                    <th class="Detalle scope="col" colspan="4">Detalle</th>
+                    <th class="Entradas" scope="col" colspan="4">Entradas</th>
+                    <th class="Salidas" scope="col" colspan="4">Salidas</th>
+
+                </tr>
+
 
                 <tr>
                     <th scope="col">#</th>
@@ -231,7 +280,7 @@
                     <td>${team.preciou1}</td>
                     <td>${team.preciototal2}</td>
                     <td class="text-end">
-                        <button class="btn btn-sm btn-primary" onclick="editar(${index})">Editar</button>
+                        <button class="btn btn-sm btn-primary" onclick="editar1('${team.fecha}', '${team.descripcion}', '${team.doc}', '${team.entradas}', '${team.precio}', '${team.preciototal}', '${team.cantidad}', '${team.preciou}', '${team.preciototal1}', '${team.cantidad1}', '${team.preciou1}', '${team.preciototal2}', ${index})">Editar</button>
                         <button class="btn btn-sm btn-danger" onclick="eliminar(${index})">Eliminar</button>
                     </td>
                 </tr>`;
@@ -301,6 +350,52 @@
             localStorage.setItem("reportes", JSON.stringify(teams));
             cargar();
         }
+
+        const Editar = () => {
+            document.getElementById("fechaE").value = team.fecha;
+            document.getElementById("descripcionE").value = team.descripcion;
+            document.getElementById("docE").value = team.doc;
+            document.getElementById("entradasE").value = team.entradas;
+            document.getElementById("precioE").value = team.precio;
+            document.getElementById("preciototalE").value = team.preciototal;
+            document.getElementById("cantidadE").value = team.cantidad;
+            document.getElementById("preciouE").value = team.preciou;
+            document.getElementById("preciototal1E").value = team.preciototal1;
+            document.getElementById("cantidad1E").value = team.cantidad1;
+            document.getElementById("preciou1E").value = team.preciou1;
+            document.getElementById("preciototal2E").value = team.preciototal2;
+            document.getElementById("indexE").value = index;
+
+            let teams = JSON.parse(localStorage.getItem("reportes")) || [];
+            teams.push({ fecha, descripcion, doc, entradas, precio, preciototal, cantidad, preciou, preciototal1, cantidad1, preciou1, preciototal2 });
+            localStorage.setItem("reportes", JSON.stringify(teams));
+            closeModal2();
+            cargar();
+
+        }
+
+        const editar1  = (fecha, descripcion, doc, entradas, precio, preciototal, cantidad, preciou, preciototal1, cantidad1, preciou1, preciototal2, index) => {
+       
+            document.getElementById("fechaE").value = fecha;
+            document.getElementById("descripcionE").value = descripcion;
+            document.getElementById("docE").value = doc;
+            document.getElementById("entradasE").value = entradas;
+            document.getElementById("precioE").value = precio;
+            document.getElementById("preciototalE").value = preciototal;
+            document.getElementById("cantidadE").value = cantidad;
+            document.getElementById("preciouE").value = preciou;
+            document.getElementById("preciototal1E").value = preciototal1;
+            document.getElementById("cantidad1E").value = cantidad1;
+            document.getElementById("preciou1E").value = preciou1;
+            document.getElementById("preciototal2E").value = preciototal2;
+            document.getElementById("indexE").value = index;
+            openModal2();
+        }
+
+        cargar();
+
+      
+
 
 
 
